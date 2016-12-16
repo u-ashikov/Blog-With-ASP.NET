@@ -1,0 +1,66 @@
+﻿@model WebStepBlog.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h3>Details</h3>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        @if (Model.Tag != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Tags)
+            </dt>
+
+            <dd>
+                @{
+                    var tags = Model.Tag.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (var i = 0; i < tags.Length; i++)
+                    {
+                        var tag = tags[i];
+                        if (i != tags.Length - 1)
+                        {
+                            <span class="tag"><strong>@tag, </strong></span>
+                        }
+                        else
+                        {
+                            <span class="tag"><strong>@tag</strong></span>
+                        }
+                    }
+                }
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

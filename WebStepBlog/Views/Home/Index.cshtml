@@ -1,0 +1,109 @@
+﻿@model IEnumerable<object>
+@using PagedList;
+@using PagedList.Mvc;
+@using WebStepBlog.Classes
+
+@{
+    IPagedList<WebStepBlog.Models.Post> Posts = Model.ToList()[0] as IPagedList<WebStepBlog.Models.Post>;
+    List<WebStepBlog.Models.Post> recentPosts = Model.ToList()[1] as List<WebStepBlog.Models.Post>;
+    List<WebStepBlog.Models.Tag> tags = Model.ToList()[2] as List<WebStepBlog.Models.Tag>;
+}
+
+@{
+    ViewBag.Title = "WebStep";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        @foreach (var post in Posts)
+        {
+            <article class="post col-md-8" style="width:700px">
+                <h4 class="title">@Html.ActionLink(@post.Title, "SinglePost", "Posts", new { id = post.Id }, null) </h4>
+                <hr />
+                <div>
+                    Posted on <span class="glyphicon glyphicon-calendar"></span>    <i>@post.Date</i>
+                    <i>
+                        @if (post.Author != null)
+                        {
+                            @:by <span class="glyphicon glyphicon-user"></span> <i>@post.Author.FullName</i>
+                        }
+                    </i>
+                    @if (post.Comments.Count == 0)
+                    {
+                        <div style="float:right">
+                            <span class="glyphicon glyphicon-pencil"></span>                      
+                            @Html.ActionLink("Leave a comment", "CreateComment", "Comments", new { id = post.Id }, null)
+                        </div>
+                    }
+                    else if (post.Comments.Count == 1)
+                    {
+                        <div style="float:right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            @Html.ActionLink(post.Comments.Count + " Comment", "CreateComment", "Comments", new { id = post.Id }, null)
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="float:right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            @Html.ActionLink(post.Comments.Count + " Comments", "CreateComment", "Comments", new { id = post.Id }, null)
+                        </div>
+                    }
+                </div>
+                <hr />
+                <div class="post-body">
+                    <p>
+                        @Html.Raw(Utils.CutText(post.Body, 200))
+                        @if (post.Body.Length > 200)
+                        {
+                            <span style="float: right">@Html.ActionLink("Read More", "SinglePost", "Posts", new {id = post.Id}, null)</span>
+                        }
+                    </p>
+                    @if (post.Tags.Count > 0)
+                    {
+                        <div class="post-tags">
+                            <p class="glyphicon glyphicon-tag">
+                                @foreach (var tag in post.Tags)
+                                {
+                                    <span class="tag index-tag">
+                                        <strong>@Html.ActionLink(tag.Title, "PostsByTag", "Tags", new { tagName = tag.Title }, null)</strong>
+                                    </span>
+                                }
+                            </p>
+                        </div>
+                    }                      
+                </div>
+            </article>
+        }
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Recent Posts</strong>
+                </h3>
+            </div>
+            @for (int i = 0; i < Math.Min(recentPosts.Count(), 5); i++)
+            {
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-book"></span> @Html.ActionLink(recentPosts[i].Title, "SinglePost", "Posts", new { id = recentPosts[i].Id }, null)
+                </div>
+            }
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>Popular Tags</strong>
+                </h3>
+            </div>
+            @for (int i = 0; i < Math.Min(tags.Count(), 5); i++)
+            {
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-tag"></span>
+                    @Html.ActionLink(tags[i].Title, "PostsByTag", "Tags", new { tagName = tags[i].Title }, null)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="pager">@Html.PagedListPager(Posts, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })</div>

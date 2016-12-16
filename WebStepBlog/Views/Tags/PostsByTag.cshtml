@@ -1,0 +1,70 @@
+﻿
+@model IEnumerable<WebStepBlog.Models.Tag>
+
+@{
+    ViewBag.Title = "PostsByTag";
+}
+
+<h3>Posts</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Content
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        foreach (var post in item.Posts)
+         {
+             <tr>
+                 <td>
+                     <strong>@post.Title</strong>
+                 </td>
+                 <td>
+                     @Html.Raw(post.Body)
+                     <div class="post-tags">
+                         <h4 class="tag">Selected Tag:</h4>
+                         @{
+                             var tags = post.Tags.ToList();
+                             for (var i = 0; i < tags.Count(); i++)
+                             {
+                                 var tag = tags[i];
+                                 <span class="tag single-tag"><strong>@tag.Title</strong></span>
+                             }
+                        }
+                     </div>
+                 </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => post.Date)
+                 </td>
+                 <th>
+                     @if (post.Author == null)
+                     {
+                         <i>No Author</i>
+                     }
+
+                     @Html.DisplayFor(modelItem => post.Author.FullName)
+                 </th>
+                 <td>
+                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                 </td>
+             </tr>
+         }
+    }
+</table>

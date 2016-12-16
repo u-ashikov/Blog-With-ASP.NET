@@ -1,0 +1,73 @@
+﻿
+@model IPagedList<WebStepBlog.Models.Post>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>All Posts!</h3>
+    <p>
+        @Html.ActionLink("Create New Post", "Create")
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Body)
+                    <div class="post-tags">
+                        @foreach (var tag in item.Tags)
+                        {
+                            <span>
+                                <strong class="glyphicon glyphicon-tag">@tag.Title</strong>
+                            </span>
+                        }
+                    </div>
+                </td>
+                <td>    
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <th>
+                    @if (item.Author == null)
+                    {
+                        <i>No Author</i>
+                    }
+
+                    @Html.DisplayFor(modelItem => item.Author.FullName)
+                </th>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <br />
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) <br />
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+<p>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</p>
+    <div class="pager">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })</div>

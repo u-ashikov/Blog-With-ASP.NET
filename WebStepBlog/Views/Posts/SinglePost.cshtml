@@ -1,0 +1,59 @@
+﻿@using WebStepBlog.Models
+@model WebStepBlog.Models.Post
+
+@{
+    ViewBag.Title = "SinglePost";
+}
+
+<div class="single-post">
+    <h2 style="padding: 10px; text-align: center">@Model.Title</h2>
+    <hr/>
+    <div style="padding: 10px;">
+        <strong>Posted at:</strong> <i><span>@Model.Date</span></i>
+        <br/>
+        <strong>Post author: </strong><i><span>@Model.Author.FullName</span></i>
+    </div>
+    <hr/>
+    <div style="padding: 10px;">
+        @Html.Raw(Model.Body)
+    </div>
+    @if (Model.Tags.Count > 0)
+    {
+        <div class="post-tags">
+            <span class="glyphicon glyphicon-tags"></span><h4> Tags:</h4>
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="tag">
+                    <strong>@tag.Title</strong>
+                </span>
+            }
+        </div>
+    } 
+</div>
+
+@if (Model.Comments.Count > 0)
+{
+    <h2>Comments:</h2>
+    foreach (var comment in Model.Comments)
+    {
+        <div class="comment-preview">
+            <div class="comment-info">
+                <div>
+                    <i>Posted by</i> <strong>@comment.Name</strong> on @comment.Date
+                </div>
+            </div>
+            <div class="comment-body">@Html.Raw(comment.Body)</div>
+        </div>
+    }
+}
+else
+{
+    <h2>There are no comments !</h2>
+}
+
+
+<p>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+    |
+    @Html.ActionLink("Leave a comment", "CreateComment", "Comments",new { id=Model.Id},null)
+</p>

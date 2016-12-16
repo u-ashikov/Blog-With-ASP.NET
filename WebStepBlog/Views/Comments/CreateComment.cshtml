@@ -1,0 +1,124 @@
+﻿@model WebStepBlog.Models.Post
+
+
+@{
+    ViewBag.Title = "CreateComment";
+}
+
+@using (Html.BeginForm(new { Action = "AddComment", postId = Model.Id }))
+{
+    <div class="single-post">
+        <h2 style="padding:10px;text-align:center">@Model.Title</h2>
+        <hr />
+        <div style="padding:10px;">
+            <strong>Posted at:</strong> <i><span>@Model.Date</span></i>
+            <br />
+            <strong>Post author: </strong><i><span>@Model.Author.FullName</span></i>
+        </div>
+        <hr />
+        <div style="padding:10px;">
+            @Html.Raw(Model.Body)
+        </div>
+        <div class="post-tags">
+            <span class="glyphicon glyphicon-tags"></span><h4> Tags:</h4>
+            @foreach (var tag in Model.Tags)
+            {
+                <spanc class="tag">
+                    <strong>@tag.Title</strong>
+                </spanc>
+            }
+        </div>
+    </div>
+    <hr />
+    <strong><span class="glyphicon glyphicon-comment"></span> @Model.Comments.Count() comments to <i>@Model.Title</i></strong>
+    <hr />
+    if (Model.Comments.Count > 0)
+    {
+        foreach (var comment in Model.Comments)
+        {
+            <div class="comment-preview">
+                <div class="comment-info">
+                    <div>  
+                            <i>Posted by</i> <span class="glyphicon glyphicon-user"></span> <strong>@comment.Name</strong> on <span class="glyphicon glyphicon-calendar"> </span>@comment.Date
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Administrators"))
+                        {
+                            <div style="float:right">@Html.ActionLink("Delete", "DeleteComment", "Comments", new { id = comment.Id }, null)</div>
+                            <div style="float:right;margin-right:10px">@Html.ActionLink("Edit", "EditComment", "Comments", new { id = comment.Id }, null)</div>
+                        }
+                    </div>
+                </div>
+                <div class="comment-body">
+                    <div>@Html.Raw(comment.Body)</div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h2>There are no comments. Be the first ?</h2>
+    }
+    <hr />
+
+    <h3>Create a comment:</h3>
+    if (!User.Identity.IsAuthenticated)
+    {
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Comment.Name, new { htmlAttributes = new { @class = "form-control", style = "width:280px" } })
+                    @Html.ValidationMessageFor(model => model.Comment.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Comment.Email, new { htmlAttributes = new { @class = "form-control", style = "width:280px" } })
+                    @Html.ValidationMessageFor(model => model.Comment.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control",rows="20" } })
+                    @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Post comment" class="btn btn-info" />
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control", @rows = "10" } })
+                    @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Post comment" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<p>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</p>

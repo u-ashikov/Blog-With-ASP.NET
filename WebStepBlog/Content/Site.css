@@ -1,0 +1,223 @@
+﻿body {
+    padding-top: 80px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 800px;
+}
+
+.post {
+    background: #DFDEDC;
+    margin: 1%;
+}
+.single-post{
+    background-color: #DFDEDC;
+    margin:2px;
+    border-radius:5px;
+}
+.comment-info {
+    height:20px;
+}
+.comment-preview {
+    width:500px;
+}
+.comment-body {
+    margin-top:10px;
+    margin:20px;
+    width:500px;
+    padding:8px;
+    background:#F3F0F0;
+    border-radius:10px;
+    word-wrap:break-word;
+}
+
+.create-post-body {
+    background-color: lightyellow;
+}
+.alert {
+    margin-top:5px;
+    width:900px;
+}
+.title {
+    text-align:center;
+}
+.panel-title {
+    text-align:center;
+}
+.panel-body {
+    border-bottom:inset;
+}
+
+.post-tags {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+.single-tag {
+    background-color: #87cefa;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.post-tags h4 {
+    display: inline;
+    color: #081D6F;
+}
+
+.tag {
+  font-family: sans-serif;
+}
+
+.tag :hover {
+  color: #E90C22;
+   text-decoration: none; 
+}
+.navbar {
+  background-color: #081D6F;
+  border-color: #e7e7e7;
+}
+
+.navbar .navbar-brand {
+  color: #ffd800;
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #E90C22;
+  background-color: transparent;
+}
+
+
+.navbar .navbar-text {
+  color: #E6E8EE;
+}
+
+.navbar .navbar-nav > li > a {
+  color: #E6E8EE;
+}
+
+.navbar .navbar-nav > li > a:hover,
+.navbar .navbar-nav > li > a:focus {
+  color: #081D6F;
+  background-color: #FFBC01;
+}
+
+.table > thead > tr > td.active,
+.table > tbody > tr > td.active,
+.table > tfoot > tr > td.active,
+.table > thead > tr > th.active,
+.table > tbody > tr > th.active,
+.table > tfoot > tr > th.active,
+.table > thead > tr.active > td,
+.table > tbody > tr.active > td,
+.table > tfoot > tr.active > td,
+.table > thead > tr.active > th,
+.table > tbody > tr.active > th,
+.table > tfoot > tr.active > th {
+  background-color: #665252;
+}
+
+.panel-title {    
+    color: #E90C22 ;
+}
+
+.btn-info {
+  color: #ffffff !important;
+  background-color: #FFBC01 !important;
+  border-color: #ffffff !important;
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open .dropdown-toggle.btn-info {
+  color: #ffffff !important;
+  background-color: #FFBC01 !important;
+  border-color: #ffffff !important;
+}
+
+.btn-info.disabled,
+.btn-info[disabled],
+fieldset[disabled] .btn-info,
+.btn-info.disabled:hover,
+.btn-info[disabled]:hover,
+fieldset[disabled] .btn-info:hover,
+.btn-info.disabled:focus,
+.btn-info[disabled]:focus,
+fieldset[disabled] .btn-info:focus,
+.btn-info.disabled:active,
+.btn-info[disabled]:active,
+fieldset[disabled] .btn-info:active,
+.btn-info.disabled.active,
+.btn-info[disabled].active,
+fieldset[disabled] .btn-info.active {
+  background-color: #FFBC01 !important;
+  border-color: #ffffff !important;
+}
+
+.btn-success {
+  color: #ffffff !important;
+  background-color: #FFBC01 !important;
+  border-color: #ffffff !important;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-success {
+  color: #ffffff !important;
+  background-color: #FFBC01 !important;
+  border-color: #ffffff !important;
+}
+
+.btn-success.disabled,
+.btn-success[disabled],
+fieldset[disabled] .btn-info,
+.btn-success.disabled:hover,
+.btn-success[disabled]:hover,
+fieldset[disabled] .btn-info:hover,
+.btn-success.disabled:focus,
+.btn-success[disabled]:focus,
+fieldset[disabled] .btn-info:focus,
+.btn-success.disabled:active,
+.btn-success[disabled]:active,
+fieldset[disabled] .btn-info:active,
+.btn-success.disabled.active,
+.btn-success[disabled].active,
+fieldset[disabled] .btn-info.active {
+  background-color: #FFBC01 !important;
+  border-color: #ffffff !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #081D6F;
+  border-color: #081D6F;
+}
+

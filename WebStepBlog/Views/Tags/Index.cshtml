@@ -1,0 +1,43 @@
+﻿@using System.Activities.Statements
+@using WebStepBlog.Models
+@model IEnumerable<WebStepBlog.Models.Tag>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Tags</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tag
+        </th>
+        <th>
+            Posts
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <span class="glyphicon glyphicon-tag"></span> @Html.ActionLink(item.Title, "PostsByTag", "Tags",new { tagName=item.Title},null)
+        </td>
+        <td>
+            @Html.ActionLink(item.Posts.Count.ToString(), "PostsByTag", "Tags", new { tagName = item.Title }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+
+</table>
